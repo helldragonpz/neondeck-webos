@@ -1,7 +1,7 @@
 /* Local personalisation of the installed launcher. ES5 for the TV renderer. */
 (function () {
   if (typeof tile !== 'function' || typeof act !== 'function' || window.TANADOS_UI) return;
-  var state = (window.TANADOS_UI = { version: 6, motion: false, videoReady: false });
+  var state = (window.TANADOS_UI = { version: 7, motion: false, videoReady: false });
   ICONS.shop='<path d="M5 7h14l2 14H3Z"/><path d="M8 7V5a4 4 0 0 1 8 0v2M9 14h6m-3-3v6"/>';
   var labels = window.NEONDECK_INPUTS || {};
   var artNames = {'com.webos.app.hdmi1':'tvbox','com.webos.app.hdmi2':'ps4','com.webos.app.hdmi3':'ps5','amazon':'prime','com.disney.disneyplus-prod':'disney','org.jellyfin.webos':'jellyfin','youtube.leanback.v4':'youtube','netflix':'netflix','org.webosbrew.hbchannel':'shop'};
@@ -69,6 +69,7 @@
     if(manual){if(seasonal&&seasonId()){seasonal=false;save('tanados.seasonal','off');lastSeason='';state.seasonal=false;state.season='';}save('tanados.normalWallpaper',id);}
     selected = id; state.wallpaper = id; state.rotationMinutes = interval; switchedAt = Date.now();
     save('tanados.wallpaper', id);
+    var changed=document.createEvent('CustomEvent');changed.initCustomEvent('neondeck:wallpaper',false,false,current());window.dispatchEvent(changed);
     still.style.display='block';still.src = media + '/wallpaper/' + id + '.jpg'; video.poster = still.src;
     release(); applyMotion();
     if (typeof logLine === 'function') logLine('Wallpaper selected: ' + id + '; rotation=' + interval + '; motion=' + enabled);
@@ -274,7 +275,7 @@
     stopPreview(true);callMedia('/download',{id:w.id,quality:quality||720}).then(function(job){downloadProgress(w,job,poster,false);}).catch(function(e){failed(e);if(/storage|limit|space/i.test(e.message))storageMenu();});
   }
   function preparePreview(w,d){callMedia('/online/preview',{id:w.id}).then(function(job){if(job.status==='ready')showPreview(job.preview);else downloadProgress(w,job,d.poster,true);}).catch(failed);}
-  function emptyWallpaper(){document.documentElement.setAttribute('data-gallery-empty','on');lastSeason='';selected='';save('tanados.wallpaper','');release();still.removeAttribute('src');still.style.display='none';state.wallpaper='';}
+  function emptyWallpaper(){document.documentElement.setAttribute('data-gallery-empty','on');lastSeason='';selected='';save('tanados.wallpaper','');release();still.removeAttribute('src');still.style.display='none';state.wallpaper='';var changed=document.createEvent('CustomEvent');changed.initCustomEvent('neondeck:wallpaper',false,false,null);window.dispatchEvent(changed);}
   function deleteWallpaper(w){
     openMenu('Delete '+w.title+'?', [{label:'Cancel',stay:true,fn:backMenu},{label:'Delete wallpaper',sub:'Frees '+(w.bytes?formatBytes(w.bytes):'TV space'),stay:true,fn:function(){
       if(selected===w.id){var other=library.filter(function(x){return x.id!==w.id;})[0];if(other)choose(other.id,true);else emptyWallpaper();}
@@ -370,14 +371,17 @@
     root.style.setProperty('--personal-focus-width',stored('tanados.focusWidth','2')+'px');
     root.style.setProperty('--personal-corner',stored('tanados.corners','24')+'px');
     state.palette=palette;
+    if(window.NEONDECK_THEME)NEONDECK_THEME.refresh();
   }
   function choices(title,key,values){
-    openMenu(title,values.map(function(v){return {label:v.label,sub:stored(key,String(v.defaultValue||''))===String(v.value)?'Selected':'',stay:true,fn:function(){save(key,v.value);applyAppearance();backMenu();}};}));
+    openMenu(title,values.map(function(v){return {label:v.label,sub:stored(key,String(v.defaultValue||''))===String(v.value)?'Selected':'',stay:true,fn:function(){save(key,v.value);if(key==='tanados.palette'&&window.NEONDECK_THEME)NEONDECK_THEME.setMode('off');applyAppearance();backMenu();}};}));
   }
+  function autoThemeMenu(){openBuilt('Auto Theme',function(){return [{label:'Match wallpaper',sub:window.NEONDECK_THEME&&NEONDECK_THEME.mode()==='on'?'Selected':'',stay:true,fn:function(){NEONDECK_THEME.setMode('on');}},{label:'Use my manual colour',sub:window.NEONDECK_THEME&&NEONDECK_THEME.mode()==='off'?'Selected':'',stay:true,fn:function(){NEONDECK_THEME.setMode('off');}}];});}
   function appearanceMenu(){
     openBuilt('Theme & appearance',function(){return [
+      {label:'Auto Theme',sub:window.NEONDECK_THEME&&NEONDECK_THEME.mode()==='on'?'Matches wallpaper':'Manual colour',stay:true,fn:autoThemeMenu},
       {label:'Icon colour',sub:stored('tanados.palette','violet'),stay:true,fn:function(){choices('Icon colour','tanados.palette',Object.keys(palettes).map(function(k){return {label:k.charAt(0).toUpperCase()+k.slice(1),value:k,defaultValue:'violet'};}));}},
-      {label:'Icon style',sub:stored('tanados.iconStyle','glass'),stay:true,fn:function(){choices('Icon style','tanados.iconStyle',[{label:'Glass',value:'glass',defaultValue:'glass'},{label:'Minimal',value:'minimal'},{label:'Outlined',value:'outlined'}]);}},
+      {label:'Icon style',sub:stored('tanados.iconStyle','glass'),stay:true,fn:function(){choices('Icon style','tanados.iconStyle',[{label:'Glass',value:'glass',defaultValue:'glass'},{label:'Minimal',value:'minimal'},{label:'Outlined',value:'outlined'},{label:'Solid',value:'solid'},{label:'Gradient',value:'gradient'},{label:'Neon',value:'neon'},{label:'Arcade',value:'arcade'},{label:'Orbit',value:'orbit'}]);}},
       {label:'Icon size',sub:stored('tanados.iconSize','100')+'%',stay:true,fn:function(){choices('Icon size','tanados.iconSize',[88,100,112].map(function(n){return {label:n+'%',value:n,defaultValue:100};}));}},
       {label:'Dock opacity',sub:stored('tanados.dockOpacity','78')+'%',stay:true,fn:function(){choices('Dock opacity','tanados.dockOpacity',[45,65,78,90].map(function(n){return {label:n+'%',value:n,defaultValue:78};}));}},
       {label:'Wallpaper dimming',sub:stored('tanados.dim','15')+'%',stay:true,fn:function(){choices('Wallpaper dimming','tanados.dim',[0,15,30,50].map(function(n){return {label:n+'%',value:n,defaultValue:15};}));}},
@@ -392,6 +396,7 @@
       {label:'More launcher settings',stay:true,fn:function(){customizeMenu();}}
     ];});
   }
+  window.NEONDECK_HOME={media:media,palettes:palettes,get:stored,set:function(k,v){save(k,v);applyAppearance();},library:function(){return library.slice();},selected:function(){return selected;},appearance:appearanceMenu,api:callMedia};
   applyAppearance();
 
   var originalAct = act;

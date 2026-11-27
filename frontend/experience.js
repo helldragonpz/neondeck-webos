@@ -50,5 +50,6 @@
     var sig=[zone,lang,seconds,get('clockFormat','24')].join('|');if(sig!==clockSignature){clockSignature=sig;try{var opts={hour:'2-digit',minute:'2-digit',hour12:get('clockFormat','24')==='12'};if(zone!=='local')opts.timeZone=zone;if(seconds)opts.second='2-digit';format=new Intl.DateTimeFormat(lang,opts);var dateOpts={weekday:'short',day:'numeric',month:'long'};if(zone!=='local')dateOpts.timeZone=zone;dateFormat=new Intl.DateTimeFormat(lang,dateOpts);}catch(_){format=null;}}
     tickClock();state.clockStyle=style;state.buttonMotion=get('motion','subtle');
   }
+  window.NEONDECK_EXPERIENCE={clockMenu:clockMenu,motionMenu:motionMenu,put:put,get:get,pauseMenu:syncMenuVideo};
   document.addEventListener('visibilitychange',function(){if(document.hidden)clearTimeout(timer);else tickClock();});window.addEventListener('focus',tickClock);apply();
 })();

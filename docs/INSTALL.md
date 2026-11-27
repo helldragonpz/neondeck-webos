@@ -102,7 +102,7 @@ The installer creates a private backup on the TV, verifies the converter checksu
 
 Use **Customise → More launcher settings** to arrange your dock and top buttons. Input icons follow their titles: rename a console input to `PS4` or `PS5` to select its matching glyph. Pick your own HDMI order; no owner's input mapping is shipped.
 
-In **Customise**, adjust icon colour, size, style, outlines, corners, dock opacity, clock size, wallpaper dimming and image fit. **Preview panel side** chooses left or right. Settings are saved locally. Existing Prime Video and Disney+ apps can be pinned like other installed apps; NeonDeck does not supply subscriptions or their packages.
+Open **Customise** for the visual **Theme Studio**. Use Look, Icons, Layout, Clock and More to browse setting cards. Auto Theme follows the selected wallpaper; choosing a manual colour turns matching off until you enable it again. Icon finishes and animations have previews. **Preview panel side** chooses left or right. Settings are saved locally. Existing Prime Video and Disney+ apps can be pinned like other installed apps; NeonDeck does not supply subscriptions or their packages.
 
 ![Appearance menu browser preview](images/appearance.png)
 
@@ -126,7 +126,7 @@ Enable **Automatic seasonal wallpapers** when ready. New Year and Halloween each
 
 ![App shop browser preview](images/shop.png)
 
-Open **App Shop** for the official Homebrew catalogue. Use All, Games, Media, Tools or Installed, or search by name. Open an app's details before choosing Install, Update or Delete. Packages are installed through Homebrew Channel with the catalogue's SHA256 checksum. Core system apps and a currently running app cannot be removed here.
+Open **App Shop** for the official Homebrew catalogue. Browse the app cards under All, Games, Media, Tools or Installed, or use Search. Left/Right moves between cards; Up from the first row reaches the category tabs. Down returns to the cards. Pages advance as you move through the grid. Open an app's details before choosing Install, Update or Delete. Packages are installed through Homebrew Channel with the catalogue's SHA256 checksum. Core system apps and a currently running app cannot be removed here.
 
 ![Storage menu browser preview](images/storage.png)
 

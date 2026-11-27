@@ -23,3 +23,7 @@ Automated browser previews use fixtures and do not demonstrate hardware 4K playb
 Version 0.2.1 regression tests cover a long 4K time budget, widescreen output dimensions, preservation of a 4K job's poster while browsing, a simulated conversion-memory error, persisted error history and reuse of the same original on retry. On-device long-source retry verification is recorded separately from these synthetic checks.
 
 The browser suite also checks that an HTTP 200 response describing a failed download reaches the retry menu, retains the selected 4K quality on Retry, and requests 720p when that fallback is chosen. An error in a completed job is distinct from an HTTP/authentication failure.
+
+Version 0.3.0 adds palette hue/neutral/contrast tests plus browser checks for automatic colour changes on selection, manual override, saved mode/animation choices, distinct style previews, contrast for filled icons, grid pagination, remote category navigation and preserved app-install confirmation.
+
+The 0.3.0 setup IPK installed and its packaged update completed on the TV above. Active, mounted and recovery Home files matched the built HTML; the existing wallpaper library, local credentials, isolated media worker and 17 privacy settings were preserved. Home video playback and internet access remained available. The browser regression suite passed 31 checks, including palette extraction from a JPEG served on a separate local origin. The new card menus and animation choices still need the owner's physical-remote feedback.
