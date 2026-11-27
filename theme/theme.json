@@ -1,0 +1,91 @@
+{
+  "name": "NeonDeck",
+  "author": "NeonDeck contributors",
+  "description": "Unified console and streaming icons, local live wallpaper library and personal appearance controls.",
+  "extends": "classic",
+  "colors": {
+    "night": "#060910",
+    "panel": "#111a2b",
+    "ink": "#edf5ff",
+    "accent": "#55dcff",
+    "focus": "#b499ff",
+    "pill": "#86baff"
+  },
+  "surface": {
+    "pillAlpha": 0.12,
+    "pillRing": 0.22,
+    "pillRadius": 20,
+    "menuAlpha": 0.98,
+    "rowRadius": 18
+  },
+  "type": {
+    "scale": 1.06
+  },
+  "clock": {
+    "layout": "stack",
+    "x": 100,
+    "y": 72,
+    "scale": 0.9,
+    "dateScale": 0.9,
+    "greeting": false,
+    "date": false
+  },
+  "bar": {
+    "style": "round",
+    "labels": "hide",
+    "x": 100,
+    "y": 72,
+    "size": 76,
+    "gap": 18
+  },
+  "dock": {
+    "anchor": "bottom",
+    "align": "center",
+    "y": 120,
+    "count": 8,
+    "w": 196,
+    "h": 200,
+    "gap": 16,
+    "radius": 24,
+    "panel": 0.4,
+    "panelPad": 18,
+    "tileFrost": 0,
+    "tileFrostColor": "#111a2b",
+    "lift": 0,
+    "focusScale": 1.0,
+    "tileAlpha": 0
+  },
+  "grid": {
+    "mode": "push",
+    "dockUp": 230,
+    "cols": 7,
+    "tileH": 160,
+    "radius": 22,
+    "gapX": 28,
+    "gapY": 28,
+    "align": "center",
+    "focusScale": 1.03,
+    "overlayDim": 0.8
+  },
+  "tile": {
+    "border": 0,
+    "gloss": 0,
+    "ringWidth": 0,
+    "ringOffset": 0
+  },
+  "effects": {
+    "glow": 0,
+    "glowColor": "accent",
+    "focusIcon": false,
+    "speed": 0,
+    "scenes": "off",
+    "wallpaper": "",
+    "wallpaperDim": 0.12
+  },
+  "shelf": {
+    "show": false
+  },
+  "strip": {
+    "show": false
+  }
+}

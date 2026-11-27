@@ -1,0 +1,74 @@
+/* Personal console theme: one palette, consistent vectors, immediate focus. */
+:root {--personal-accent:#c7b0ff;--personal-dock-alpha:.78;--personal-dim:.15;--personal-icon-size:100px;}
+[data-theme="neon"] #dock .tile {
+  background:transparent !important;box-shadow:none !important;border:0;
+  flex-direction:column;justify-content:center;transition:none !important;
+}
+[data-theme="neon"] #dock .tile.f {background:rgba(199,176,255,.12) !important;box-shadow:inset 0 0 0 2px var(--personal-accent) !important;}
+[data-theme="neon"] .tile::before {display:none !important;}
+[data-theme="neon"] .tile > img,[data-theme="neon"] .tile > .t {display:none !important;}
+[data-theme="neon"] .tile .tanados-icon {
+  color:var(--personal-accent);width:var(--personal-icon-size);height:var(--personal-icon-size);
+  border-radius:26px;display:flex;align-items:center;justify-content:center;flex:none;
+  background:rgba(199,176,255,.07);border:1px solid rgba(199,176,255,.22);
+}
+[data-theme="neon"] .tanados-icon svg {width:72%;height:72%;max-width:none;position:static;transform:none;}
+[data-theme="neon"] .tanados-monogram {font-size:40px;font-weight:600;letter-spacing:1px;}
+[data-theme="neon"] #dock .tile.inp .slab,
+[data-theme="neon"] #dock .tanados-title {
+  display:block;font-size:25px !important;line-height:1.2;font-weight:400;margin-top:17px;
+  color:#edf3ff;max-width:96%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+[data-theme="neon"] #dock .tile.inp .slab.sub {display:none;}
+[data-theme="neon"] #dock .tile.inp.off {opacity:.8;}
+[data-theme="neon"] #dock {background:rgba(9,14,29,var(--personal-dock-alpha)) !important;}
+[data-theme="neon"] #grid .tile {background:rgba(9,14,29,.85) !important;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+[data-theme="neon"] #grid .tanados-icon {width:82px;height:82px;border-radius:20px;}
+[data-theme="neon"] #grid .tanados-title {font-size:20px;margin-top:10px;color:#edf3ff;}
+[data-theme="neon"] #grid .tile.inp .slab {font-size:20px;}
+[data-theme="neon"] #grid .tile.inp .slab.sub {display:none;}
+[data-theme="neon"] #grid .tile.f {outline:3px solid var(--personal-accent);outline-offset:3px;}
+[data-personal-style="minimal"] .tile .tanados-icon {background:transparent !important;border-color:transparent !important;}
+[data-personal-style="outlined"] .tile .tanados-icon {background:transparent !important;border-color:var(--personal-accent) !important;}
+/* Flat bar's focused ink used to become dark on a transparent background. */
+[data-theme="neon"] #bar .pill {width:76px;height:76px;padding:0;justify-content:center;position:relative;border-radius:20px;color:var(--personal-accent);background:rgba(9,14,29,.55);box-shadow:inset 0 0 0 1px rgba(199,176,255,.2);transform:none !important;}
+[data-theme="neon"] #bar .pill.f {color:var(--personal-accent) !important;background:#22233e !important;box-shadow:inset 0 0 0 2px var(--personal-accent) !important;}
+[data-theme="neon"] #bar .pill svg {width:30px;height:30px;opacity:1;visibility:visible;}
+[data-theme="neon"] #bar .pill span {display:none;}
+[data-toolbar-labels="on"] [data-theme="neon"] #bar .pill span,
+[data-toolbar-labels="on"][data-theme="neon"] #bar .pill span {display:block;position:absolute;top:86px;left:50%;transform:translateX(-50%);margin:0;font-size:17px;line-height:1.2;max-width:120px;color:#e9e4ff;text-shadow:0 1px 5px #000;}
+#tanados-motion,#tanados-wallpaper-still {position:absolute;left:0;top:0;width:1920px;height:1080px;object-fit:cover;pointer-events:none;z-index:0;}
+#tanados-motion {z-index:1;}
+#tanados-motion-shade {position:absolute;left:0;top:0;width:1920px;height:1080px;pointer-events:none;z-index:2;background:rgba(2,7,15,var(--personal-dim));}
+[data-theme="neon"] #top,[data-theme="neon"] #view {z-index:3;}
+#tanados-search {position:absolute;z-index:1000;left:380px;top:270px;width:1160px;padding:54px;background:#10172a;color:#edf3ff;border:2px solid var(--personal-accent);border-radius:28px;box-sizing:border-box;}
+#tanados-search label {display:block;font-size:38px;margin-bottom:28px;}
+#tanados-search input {width:100%;box-sizing:border-box;font-size:32px;padding:20px;background:#202a42;color:#fff;border:2px solid var(--personal-accent);border-radius:16px;outline:none;}
+#tanados-search p {font-size:22px;color:#c7c8d7;margin-top:20px;}
+/* Override the launcher's ID-based SVG sizing inside the uniform icon frame. */
+[data-theme="neon"] #dock .tile .tanados-icon svg,
+[data-theme="neon"] #grid .tile .tanados-icon svg {width:72% !important;height:72% !important;max-width:none !important;fill:inherit;color:var(--personal-accent);position:static !important;transform:none !important;}
+[data-theme="neon"] #dock .tile .tanados-icon svg[fill="currentColor"],
+[data-theme="neon"] #grid .tile .tanados-icon svg[fill="currentColor"] {fill:currentColor;}
+[data-theme="neon"] #dock .tile .tanados-icon svg[fill="none"],
+[data-theme="neon"] #grid .tile .tanados-icon svg[fill="none"] {fill:none;}
+[data-theme="neon"] .tanados-icon svg[fill="currentColor"] {stroke:none !important;}
+[data-theme="neon"] .tanados-icon svg[fill="none"] {stroke:var(--personal-accent) !important;stroke-width:2.5;}
+#ovside .pvbox video {width:100%;height:100%;object-fit:cover;display:block;}
+[data-personal-preview="right"] #ov.ws {justify-content:flex-start;padding-left:150px;padding-right:0;}
+[data-personal-preview="right"] #ovside {left:auto;right:150px;}
+#ovside .pvbox.app-preview {display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#171c33,#0e1425);}
+#ovside .app-preview img {width:210px;height:210px;object-fit:contain;}
+#ov.appshop .mt {padding:0 15px;font-size:23px;}
+#ov.appshop .row {min-height:84px;}
+#ov .row .store-icon {width:58px;height:58px;object-fit:contain;flex:none;margin-right:18px;border-radius:12px;background:#171c33;}
+#ov.appshop .row.f {background:#302a49;color:#f7f3ff;box-shadow:inset 0 0 0 2px var(--personal-accent);}
+#ov.appshop .row .lb {font-size:27px;}
+[data-theme="neon"] #time {font-size:calc(50px * var(--fs) * var(--personal-clock-size,1));}
+[data-dock-labels="off"] #dock .tanados-title,[data-dock-labels="off"] #dock .slab {display:none !important;}
+#tanados-motion,#tanados-wallpaper-still {object-fit:var(--personal-video-fit,cover);}
+[data-theme="neon"] #dock {border-radius:var(--personal-corner,24px) !important;}
+[data-theme="neon"] #dock .tile {border-radius:var(--personal-corner,24px) !important;}
+[data-theme="neon"] #dock .tile.f {box-shadow:inset 0 0 0 var(--personal-focus-width,2px) var(--personal-accent) !important;}
+[data-storage-low="on"] #bar .pill svg {filter:none;}
+[data-gallery-empty="on"] body {--wall:none;background:#090e1d !important;}

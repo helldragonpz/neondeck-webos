@@ -1,0 +1,14 @@
+[Unit]
+Description=Local Home app catalogue and package management
+[Service]
+Type=simple
+User=root
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+Nice=10
+CPUQuota=40%
+MemoryMax=96M
+TasksMax=32
+ExecStart=/usr/bin/node /var/lib/tanados-tv-dns/management_server.js
+Restart=on-failure
+RestartSec=2

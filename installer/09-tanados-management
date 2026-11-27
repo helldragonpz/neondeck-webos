@@ -1,0 +1,6 @@
+#!/bin/sh
+[ -e /var/lib/tanados-tv/DISABLE-PERSONAL-UI ] && exit 0
+node /var/lib/tanados-tv/neondeck-guard.js || exit 0
+ln -sf /var/lib/tanados-tv-dns/tanados-management.service /run/systemd/system/tanados-management.service
+systemctl daemon-reload
+systemctl start tanados-management.service

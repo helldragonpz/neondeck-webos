@@ -1,0 +1,15 @@
+[Unit]
+Description=Local Home background video
+
+[Service]
+Type=simple
+User=root
+NoNewPrivileges=yes
+CapabilityBoundingSet=CAP_SETUID CAP_SETGID
+Nice=10
+CPUQuota=75%
+MemoryMax=220M
+TasksMax=24
+ExecStart=/usr/bin/node /var/lib/tanados-tv-dns/media_server.js
+Restart=on-failure
+RestartSec=2

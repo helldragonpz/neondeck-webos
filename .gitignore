@@ -1,0 +1,13 @@
+private/
+config.local.*
+*.key
+*.pem
+*.token
+personal-key.js
+*.ipk
+*.mp4
+*.webm
+build/
+__pycache__/
+*.pyc
+.DS_Store

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Keep a way back illustration">
+ <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#080d1d"/><stop offset="1" stop-color="#24133c"/></linearGradient></defs>
+ <rect width="1200" height="675" rx="24" fill="url(#bg)"/><circle cx="1070" cy="100" r="220" fill="#a88aff" opacity=".05"/>
+ <g font-family="Arial,Helvetica,sans-serif"><text x="65" y="74" fill="#c7b0ff" font-size="21" letter-spacing="4">NEONDECK · SETUP 11</text>
+ <text x="65" y="132" fill="#f3f1ff" font-size="41" font-weight="700">Keep a way back</text>
+ <rect x="150" y="180" width="900" height="360" rx="23" fill="#101725" stroke="#b8a0ff" stroke-opacity=".45" stroke-width="2"/>
+ <text x="190" y="223" fill="#a1e8ff" font-size="21">In the TV SSH shell</text><text x="190" y="270" fill="#c7b0ff" font-size="26">node /var/lib/tanados-tv/</text><text x="190" y="328" fill="#edf3ff" font-size="26">neondeck-uninstall.js</text><text x="190" y="386" fill="#edf3ff" font-size="26"></text><text x="190" y="444" fill="#edf3ff" font-size="26">Restore previous UI; keep wallpapers</text>
+ <text x="65" y="591" fill="#d5cbea" font-size="21">The two displayed path lines form one command in the guide.</text>
+ <text x="65" y="636" fill="#a098b6" font-size="18">Illustration · menu wording and layout vary by TV</text></g></svg>

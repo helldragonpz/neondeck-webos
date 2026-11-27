@@ -1,0 +1,4 @@
+#!/bin/sh
+[ -e /var/lib/tanados-tv/DISABLE-PERSONAL-UI ] && exit 0
+node /var/lib/tanados-tv/neondeck-guard.js || exit 0
+node /var/lib/tanados-tv/restore-personal-ui.js >/tmp/neondeck-restore.log 2>&1
