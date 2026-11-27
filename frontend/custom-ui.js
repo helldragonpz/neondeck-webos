@@ -1,7 +1,7 @@
 /* Local personalisation of the installed launcher. ES5 for the TV renderer. */
 (function () {
   if (typeof tile !== 'function' || typeof act !== 'function' || window.TANADOS_UI) return;
-  var state = (window.TANADOS_UI = { version: 8, motion: false, videoReady: false });
+  var state = (window.TANADOS_UI = { version: 9, motion: false, videoReady: false });
   ICONS.shop='<path d="M5 7h14l2 14H3Z"/><path d="M8 7V5a4 4 0 0 1 8 0v2M9 14h6m-3-3v6"/>';
   var labels = window.NEONDECK_INPUTS || {};
   var artNames = {'com.webos.app.hdmi1':'tvbox','com.webos.app.hdmi2':'ps4','com.webos.app.hdmi3':'ps5','amazon':'prime','com.disney.disneyplus-prod':'disney','org.jellyfin.webos':'jellyfin','youtube.leanback.v4':'youtube','netflix':'netflix','org.webosbrew.hbchannel':'shop'};
@@ -81,7 +81,8 @@
   }
   function seasonId(){if(!seasonal)return '';var c=seasonConfig(),kind=TANADOS_SEASONS.season(Date.now(),c);if(seasonPool(kind).length)return kind;if(kind==='newyear'||kind==='halloween'){c.newyear=false;c.halloween=false;kind=TANADOS_SEASONS.season(Date.now(),c);if(seasonPool(kind).length)return kind;}return '';}
   function applySeason(){
-    var kind=seasonId(),pool=seasonPool(kind);state.seasonal=seasonal;state.season=kind;
+    var kind=seasonId(),pool=seasonPool(kind),changed=state.seasonal!==seasonal||state.season!==kind;state.seasonal=seasonal;state.season=kind;
+    if(changed){var event=document.createEvent('Event');event.initEvent('neondeck:season',false,false);window.dispatchEvent(event);}
     if(kind&&pool.length&&(kind!==lastSeason||!pool.some(function(w){return w.id===selected;}))){
       if(!lastSeason&&current()&&!pool.some(function(w){return w.id===selected;}))save('tanados.normalWallpaper',selected);
       choose(pool[0].id);

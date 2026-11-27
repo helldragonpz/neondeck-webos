@@ -26,9 +26,10 @@
     return art.replace('<svg ','<svg class="nd-icon-art" data-art-family="'+family+'" aria-hidden="true" ');
   }
   function paint(node,name,title,style){style=info(style||selected()).key;node.setAttribute('data-icon-style',style);node.setAttribute('data-icon-name',name||'');node.setAttribute('data-icon-title',title||'App');
-    if(name)node.innerHTML=artwork(name,style);else {node.textContent='';var letters=document.createElement('span');letters.className='tanados-monogram';letters.textContent=(title||'App').replace(/[^A-Za-z0-9]/g,'').slice(0,2)||'AP';node.appendChild(letters);}
-    if((name==='ps4'||name==='ps5')&&info(style).family!=='line'){var badge=document.createElement('span');badge.className='nd-console-number';badge.textContent=name==='ps4'?'4':'5';node.appendChild(badge);}
+    var holiday=window.NEONDECK_HOLIDAYS&&NEONDECK_HOLIDAYS.active();
+    if(holiday)node.innerHTML=NEONDECK_HOLIDAYS.icon(holiday,name||'monogram',title);else if(name)node.innerHTML=artwork(name,style);else {node.textContent='';var letters=document.createElement('span');letters.className='tanados-monogram';letters.textContent=(title||'App').replace(/[^A-Za-z0-9]/g,'').slice(0,2)||'AP';node.appendChild(letters);}
+    if(!holiday&&(name==='ps4'||name==='ps5')&&info(style).family!=='line'){var badge=document.createElement('span');badge.className='nd-console-number';badge.textContent=name==='ps4'?'4':'5';node.appendChild(badge);}
   }
-  function refresh(style){[].forEach.call(document.querySelectorAll('.tanados-icon[data-icon-name]'),function(n){paint(n,n.getAttribute('data-icon-name'),n.getAttribute('data-icon-title'),style);});}
+  function refresh(style){[].forEach.call(document.querySelectorAll('.tanados-icon[data-icon-name],.nd-glyph[data-icon-name]'),function(n){paint(n,n.getAttribute('data-icon-name'),n.getAttribute('data-icon-title'),n.classList.contains('nd-glyph')?n.getAttribute('data-icon-style'):style);});}
   window.NEONDECK_ICONS={styles:styles,info:info,paint:paint,refresh:refresh,artwork:artwork};
 })();

@@ -1,0 +1,18 @@
+/* Holiday SVGs replace the complete glyph; every path belongs to that holiday set. */
+html [data-theme="neon"] #dock .tile .tanados-icon svg.nd-holiday-art,
+html [data-theme="neon"] #grid .tile .tanados-icon svg.nd-holiday-art,
+#ov.nd-surface .nd-glyph svg.nd-holiday-art {
+  stroke:none !important;fill:none !important;width:var(--nd-holiday-art-size,88%) !important;height:var(--nd-holiday-art-size,88%) !important;
+}
+[data-icon-style="neon"] {--nd-holiday-art-size:58%;}
+html[data-holiday-iconset]:not([data-holiday-iconset="none"]) [data-theme="neon"] #bar .pill svg.nd-holiday-art {width:47px !important;height:47px !important;stroke:none !important;fill:none !important;}
+html[data-holiday-iconset]:not([data-holiday-iconset="none"]) [data-theme="neon"] #bar .pill {border:1px solid rgba(var(--holiday-rgb),.6);background-image:linear-gradient(145deg,rgba(var(--holiday-rgb),.1),transparent 65%);}
+html[data-holiday-iconset]:not([data-holiday-iconset="none"]) [data-theme="neon"] #bar .pill.f {box-shadow:inset 0 0 0 2px var(--holiday-accent) !important;}
+html[data-holiday-iconset]:not([data-holiday-iconset="none"]) #ov.nd-surface .nd-tool {border-color:rgba(var(--holiday-rgb),.6);}
+html[data-holiday-iconset]:not([data-holiday-iconset="none"]) #ov.nd-surface .nd-tab.on {border-bottom-color:var(--holiday-accent);}
+#ov.nd-surface .nd-holiday-sample {width:74px;height:74px;color:var(--personal-accent);}
+#ov.nd-surface .nd-holiday-sample.mini {width:43px;height:43px;}
+#ov.nd-surface .nd-holiday-sample svg {display:block;width:100% !important;height:100% !important;fill:none;stroke:none;}
+#ov.nd-surface .nd-holiday-card-art {gap:12px;}
+
+#ov.nd-surface .nd-holiday-sample svg:not(.nd-holiday-art) {stroke:var(--personal-accent);stroke-width:3;}

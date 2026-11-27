@@ -8,7 +8,7 @@
 | Arcade pixel artwork | Selected [Pixelarticons](https://github.com/halfmage/pixelarticons) SVGs, MIT, pinned to commit `c9ecc2da61afde85dbe539025e3d931c6152ad75`; Netflix and Jellyfin pixel marks drawn locally |
 | Other glyphs and geometric documentation artwork | Original NeonDeck artwork, MIT |
 | Homebrew app metadata, icons and packages | [webOS Homebrew](https://repo.webosbrew.org/); fetched at runtime. Each app retains its own licence |
-| Wallpaper source | [MoeWalls](https://moewalls.com/); runtime access only. Artwork/video is not included or relicensed by this repository. Respect the source and underlying rights |
+| Wallpaper source | [MoeWalls](https://moewalls.com/); optional owner downloads. Wallpaper video files are not bundled. Documentation includes interface captures with source credits in [Showcase](docs/SHOWCASE.md); background artwork is not relicensed by this repository |
 | Video converter | FFmpeg 7.0.2 ARM64 static build from [John Van Sickle](https://johnvansickle.com/ffmpeg/), downloaded separately by the installer. Its GPLv3 text and build readme remain beside the binary on the TV; see the producer for corresponding source and build details |
 
 Pinned base HTML SHA256:

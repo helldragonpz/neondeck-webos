@@ -4,7 +4,7 @@ from pathlib import Path
 import argparse,gzip,hashlib,io,json,sys,tarfile,urllib.request,zipfile
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from build import ROOT,build
-VERSION='0.3.1'
+VERSION='0.4.0'
 BASELINE_SHA='0202b7fda9ec257e5131f8a9d888f590127f82474c789ce0a705ba2a3cd787e5'
 URL='https://github.com/helldragonpz/neondeck-webos/releases/download/v'+VERSION+'/'
 def sha(data):return hashlib.sha256(data).hexdigest()

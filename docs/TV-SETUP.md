@@ -24,7 +24,7 @@ No SSH client or Python is required for this route. Homebrew Channel supplies ro
 
 ![USB bundle illustration](images/13-usb.svg)
 
-1. Download **NeonDeck-0.3.1-USB.zip** from the release and extract it so the flash drive contains a folder named **NeonDeck**.
+1. Download **NeonDeck-0.4.0-USB.zip** from the release and extract it so the flash drive contains a folder named **NeonDeck**.
 2. Insert it into the TV. Open the already-installed **NeonDeck Setup** app.
 3. Choose **Install from USB**, wait for completion, then **Open Home**.
 

@@ -13,3 +13,5 @@ The public overlay preserves existing privacy settings. It does not copy the ori
 Private installation data lives on the TV, including its model/firmware profile, generated token, app inventory and preferences. Never upload `/var/lib/tanados-tv*`, `personal-key.js`, your SSH key, known-hosts file or a full diagnostic dump to a public issue. Report only model, firmware, version and a redacted error. Repository checks reject bundled keys, non-loopback addresses and owner paths; runtime data is excluded from source.
 
 Auto Theme processes a 64×36 sample of the selected wallpaper's locally served preview image. The colour palette stays on the TV and is cached with that wallpaper. It does not upload images or repeatedly read frames from the playing video. Manual colour mode is available.
+
+Holiday icon sets are original SVG artwork rendered on the TV. Selecting a set or following the active holiday requires no external icon service, uploaded images or continuous animation loop.

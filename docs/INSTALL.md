@@ -4,7 +4,7 @@ Prefer installation using only the TV remote? Start with [TV-only setup and USB]
 
 Allow about 20–30 minutes after root access is working. You need a computer with Python 3.10+, OpenSSH (`ssh` and `scp`), and the TV on the same trusted network. Linux is tested; Windows users can use WSL. Keep the SSH key on your computer.
 
-Images labelled “illustration” explain the process; LG menu names vary with firmware and region. App screenshots use sample data and original artwork. No screen in this guide exposes an owner's address or credentials.
+Images labelled “illustration” explain the process; LG menu names vary with firmware and region. Browser previews use sample data and original artwork. The [real-TV gallery](SHOWCASE.md) shows the personalised test TV with wallpaper credits. No screen in this guide exposes an owner's address or credentials.
 
 ## 1. Check your exact TV and firmware
 
@@ -147,3 +147,7 @@ node /var/lib/tanados-tv/neondeck-uninstall.js
 ```
 
 This keeps saved wallpapers. To return completely to LG Home, use CleanYourTV's own disable/uninstall controls after rolling back the overlay. No full TV reboot is needed for a normal NeonDeck install or rollback.
+
+## Holiday icon sets
+
+Open **Customise → Holiday icon sets** for Automatic, Off, Christmas, Easter, New Year and Halloween. Automatic follows the active holiday wallpaper playlist. A named holiday replaces app, console and navigation artwork immediately and stays selected until you choose another option. Off restores everyday icons. See all four complete sets in the [real-TV gallery](SHOWCASE.md).
