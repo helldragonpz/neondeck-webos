@@ -106,6 +106,10 @@ Open **Customise** for the visual **Theme Studio**. Use Look, Icons, Layout, Clo
 
 ![Appearance menu browser preview](images/appearance.png)
 
+Choose **Icon style** to compare all twelve looks on one screen. Each card shows a console, YouTube and Netflix sample. The selection changes both the Home dock and Apps grid immediately, and keeps your wallpaper-based or manual colour choice.
+
+![Icon style comparison browser preview](images/icon-styles.png)
+
 ## 8. Preview and download a wallpaper
 
 ![Wallpaper search browser preview](images/wallpapers.png)

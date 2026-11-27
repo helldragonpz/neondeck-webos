@@ -28,8 +28,6 @@
 [data-theme="neon"] #grid .tile.inp .slab {font-size:20px;}
 [data-theme="neon"] #grid .tile.inp .slab.sub {display:none;}
 [data-theme="neon"] #grid .tile.f {outline:3px solid var(--personal-accent);outline-offset:3px;}
-[data-personal-style="minimal"] .tile .tanados-icon {background:transparent !important;border-color:transparent !important;}
-[data-personal-style="outlined"] .tile .tanados-icon {background:transparent !important;border-color:var(--personal-accent) !important;}
 /* Flat bar's focused ink used to become dark on a transparent background. */
 [data-theme="neon"] #bar .pill {width:76px;height:76px;padding:0;justify-content:center;position:relative;border-radius:20px;color:var(--personal-accent);background:rgba(9,14,29,.55);box-shadow:inset 0 0 0 1px rgba(199,176,255,.2);transform:none !important;}
 [data-theme="neon"] #bar .pill.f {color:var(--personal-accent) !important;background:#22233e !important;box-shadow:inset 0 0 0 2px var(--personal-accent) !important;}

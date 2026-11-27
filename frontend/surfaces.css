@@ -75,17 +75,6 @@
 #ov.nd-surface.nd-detail .nd-detail-action.row {padding:23px 32px;min-width:190px;display:block;margin:0;border:1px solid #394458;border-radius:17px;background:#212b3e;font-size:25px;color:#e7edf9;}
 #ov.nd-surface.nd-detail .nd-detail-action.row.f {color:var(--personal-on-accent);background:var(--personal-accent);border-color:var(--personal-accent);box-shadow:0 0 0 3px rgba(var(--personal-accent-rgb),.2);}
 #ov.nd-surface.nd-detail .nd-detail-action.destructive {border-color:#8c4456;}
-/* The same finishes are used by real icons and the preview samples. */
-[data-personal-style="solid"] .tile .tanados-icon,#ov.nd-surface .nd-icon-example[data-icon-style="solid"] {background:var(--personal-accent);border-color:var(--personal-accent);color:var(--personal-on-accent);}
-[data-personal-style="gradient"] .tile .tanados-icon,#ov.nd-surface .nd-icon-example[data-icon-style="gradient"] {background:linear-gradient(135deg,var(--personal-accent),var(--personal-secondary));border-color:transparent;color:var(--personal-on-accent);}
-[data-personal-style="neon"] .tile .tanados-icon,#ov.nd-surface .nd-icon-example[data-icon-style="neon"] {background:rgba(var(--personal-accent-rgb),.035);border:2px solid var(--personal-accent);box-shadow:inset 0 0 14px rgba(var(--personal-accent-rgb),.08),0 0 12px rgba(var(--personal-accent-rgb),.12);}
-[data-personal-style="arcade"] .tile .tanados-icon,#ov.nd-surface .nd-icon-example[data-icon-style="arcade"] {border-radius:5px;border:2px solid var(--personal-accent);background:rgba(var(--personal-accent-rgb),.1);box-shadow:5px 5px 0 rgba(var(--personal-accent-rgb),.25);}
-[data-personal-style="orbit"] .tile .tanados-icon,#ov.nd-surface .nd-icon-example[data-icon-style="orbit"] {border-radius:50%;border:2px solid rgba(var(--personal-accent-rgb),.65);background:rgba(var(--personal-accent-rgb),.05);box-shadow:inset 0 0 0 5px #141b28;}
-#ov.nd-surface .nd-icon-example[data-icon-style="minimal"] {background:transparent;border-color:transparent;}
-#ov.nd-surface .nd-icon-example[data-icon-style="outlined"] {background:transparent;border-color:var(--personal-accent);}
-[data-theme="neon"][data-personal-style="solid"] #dock .tile .tanados-icon svg,[data-theme="neon"][data-personal-style="solid"] #grid .tile .tanados-icon svg,[data-theme="neon"][data-personal-style="gradient"] #dock .tile .tanados-icon svg,[data-theme="neon"][data-personal-style="gradient"] #grid .tile .tanados-icon svg {color:var(--personal-on-accent) !important;}
-[data-theme="neon"][data-personal-style="solid"] #dock .tile .tanados-icon svg[fill="none"],[data-theme="neon"][data-personal-style="solid"] #grid .tile .tanados-icon svg[fill="none"],[data-theme="neon"][data-personal-style="gradient"] #dock .tile .tanados-icon svg[fill="none"],[data-theme="neon"][data-personal-style="gradient"] #grid .tile .tanados-icon svg[fill="none"] {stroke:var(--personal-on-accent) !important;}
-#ov.nd-surface .nd-icon-example[data-icon-style="solid"] .nd-glyph,#ov.nd-surface .nd-icon-example[data-icon-style="gradient"] .nd-glyph {color:var(--personal-on-accent);}
 :root {--nd-lift:-4px;--nd-scale:1.035;}
 [data-nd-motion="expressive"] {--nd-lift:-9px;--nd-scale:1.08;}
 [data-icon-animation="lift"]:not([data-nd-motion="off"]) .tile.f .tanados-icon {transform:translateY(var(--nd-lift)) scale(var(--nd-scale));}
@@ -114,15 +103,6 @@
 #ov.nd-surface.nd-detail .nd-surface-header h1 {max-width:1480px;max-height:118px;overflow:hidden;}
 
 [data-nd-motion="off"] #ov .nd-icon-example {animation:none !important;transform:none !important;}
-/* Appearance attributes live on html; the launcher theme attribute lives on body. */
-html[data-personal-style="solid"] [data-theme="neon"] #dock .tile .tanados-icon svg,
-html[data-personal-style="solid"] [data-theme="neon"] #grid .tile .tanados-icon svg,
-html[data-personal-style="gradient"] [data-theme="neon"] #dock .tile .tanados-icon svg,
-html[data-personal-style="gradient"] [data-theme="neon"] #grid .tile .tanados-icon svg {color:var(--personal-on-accent) !important;}
-html[data-personal-style="solid"] [data-theme="neon"] #dock .tile .tanados-icon svg[fill="none"],
-html[data-personal-style="solid"] [data-theme="neon"] #grid .tile .tanados-icon svg[fill="none"],
-html[data-personal-style="gradient"] [data-theme="neon"] #dock .tile .tanados-icon svg[fill="none"],
-html[data-personal-style="gradient"] [data-theme="neon"] #grid .tile .tanados-icon svg[fill="none"] {stroke:var(--personal-on-accent) !important;}
 body[data-theme="neon"] {--acc:var(--personal-accent);--focus:var(--personal-accent);--acc-ink:var(--personal-on-accent);}
 #ov.nd-surface button:focus {outline:2px solid var(--personal-accent);outline-offset:3px;}
 #ov.nd-surface .nd-detail-copy.reading {border-left:3px solid var(--personal-accent);padding-left:20px;}

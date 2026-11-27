@@ -1,6 +1,6 @@
 {
   "id": "org.neondeck.setup",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "vendor": "NeonDeck contributors",
   "type": "web",
   "main": "index.html",
