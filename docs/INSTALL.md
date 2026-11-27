@@ -1,5 +1,7 @@
 # Illustrated installation
 
+Prefer installation using only the TV remote? Start with [TV-only setup and USB](TV-SETUP.md). The SSH instructions below remain available for development and recovery.
+
 Allow about 20–30 minutes after root access is working. You need a computer with Python 3.10+, OpenSSH (`ssh` and `scp`), and the TV on the same trusted network. Linux is tested; Windows users can use WSL. Keep the SSH key on your computer.
 
 Images labelled “illustration” explain the process; LG menu names vary with firmware and region. App screenshots use sample data and original artwork. No screen in this guide exposes an owner's address or credentials.

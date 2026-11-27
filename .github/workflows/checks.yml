@@ -14,6 +14,9 @@ jobs:
         with:
           python-version: '3.12'
       - run: node tests/core.cjs
+      - run: node tests/setup.cjs
       - run: python3 -m unittest discover -s tests -p 'installer.py'
+      - run: python3 -m unittest discover -s tests -p 'release.py'
       - run: python3 build.py
       - run: python3 tools/audit_public.py
+      - run: node tools/preview.mjs --test

@@ -22,3 +22,5 @@ Pinned standalone FFmpeg binary SHA256:
 ```
 
 CleanFrame was a visual reference supplied during design. No CleanFrame source or assets are included. No wallpaper videos, app packages or converter binaries are committed here. The documented video-quality baseline is consistent with LG's [webOS 25 media specifications](https://webostv.developer.lge.com/develop/specifications/video-audio-250); actual decoder behaviour still needs device testing. Orthodox Easter dates can be cross-checked with the [OCA Paschal cycle](https://www.oca.org/fs/paschal-cycle).
+
+The separately downloadable setup IPK bundles the reviewed MIT-licensed CleanYourTV Manager package and retains its licence. It fetches FFmpeg directly from its producer on the TV; the release does not redistribute that converter binary.

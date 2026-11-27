@@ -3,7 +3,7 @@
 from pathlib import Path
 import re,sys
 ROOT=Path(__file__).resolve().parents[1]
-SKIP={'.git','build','__pycache__'}
+SKIP={'.git','build','dist','__pycache__'}
 bad=[]
 for p in ROOT.rglob('*'):
  if not p.is_file() or set(p.relative_to(ROOT).parts)&SKIP:continue

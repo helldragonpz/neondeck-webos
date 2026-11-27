@@ -8,6 +8,7 @@ personal-key.js
 *.mp4
 *.webm
 build/
+dist/
 __pycache__/
 *.pyc
 .DS_Store

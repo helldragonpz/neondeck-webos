@@ -4,6 +4,8 @@ from pathlib import Path
 from html import escape
 ROOT=Path(__file__).resolve().parents[1]/'docs/images'
 cards=[
+ ('12-tv-setup','12','Install with your remote','Rooted Homebrew Channel',['Settings → Add repository','Install NeonDeck Setup','Choose quality → Install','Open Home'],'An already-rooted compatible TV is required.'),
+ ('13-usb','13','Use a flash drive','NeonDeck Setup → Install from USB',['Extract the release USB ZIP','USB root → NeonDeck folder','Insert drive → open Setup app','Choose Install from USB'],'Stock LG media apps cannot run installers from a flash drive.'),
  ('01-compatibility','01','Check compatibility','TV information',['Model + firmware + webOS','Check your exact version','cani.rootmy.tv'],'A model name alone is not a compatibility check.'),
  ('02-homebrew','02','Prepare Homebrew','Homebrew Channel settings',['Root privileges: available','SSH: ON','Telnet: OFF','Block updates: ON'],'Follow the root method for your exact firmware.'),
  ('03-ssh','03','Connect privately','Your computer → your TV',['Dedicated SSH key','TV_HOST stays on your computer','Public key goes to the TV','Private key stays with you'],'Never share keys, tokens or network screenshots.'),

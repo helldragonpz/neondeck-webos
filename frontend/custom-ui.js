@@ -1,7 +1,7 @@
 /* Local personalisation of the installed launcher. ES5 for the TV renderer. */
 (function () {
   if (typeof tile !== 'function' || typeof act !== 'function' || window.TANADOS_UI) return;
-  var state = (window.TANADOS_UI = { version: 5, motion: false, videoReady: false });
+  var state = (window.TANADOS_UI = { version: 6, motion: false, videoReady: false });
   ICONS.shop='<path d="M5 7h14l2 14H3Z"/><path d="M8 7V5a4 4 0 0 1 8 0v2M9 14h6m-3-3v6"/>';
   var labels = window.NEONDECK_INPUTS || {};
   var artNames = {'com.webos.app.hdmi1':'tvbox','com.webos.app.hdmi2':'ps4','com.webos.app.hdmi3':'ps5','amazon':'prime','com.disney.disneyplus-prod':'disney','org.jellyfin.webos':'jellyfin','youtube.leanback.v4':'youtube','netflix':'netflix','org.webosbrew.hbchannel':'shop'};
@@ -142,7 +142,9 @@
     enabled = !enabled; save('tanados.motion', enabled ? 'on' : 'off'); applyMotion();
     if (typeof toast === 'function') toast(enabled ? 'Animated wallpapers on' : 'Still wallpaper on');
   }
-  var previewVideo=null,previewImage='',previewOwner=null;
+  var previewVideo=null,previewImage='',previewOwner=null,detailRequests={};
+  function onlineDetails(id){var hit=detailRequests[id];if(hit&&Date.now()-hit.at<300000)return hit.promise;var entry={at:Date.now()};entry.promise=callMedia('/online/detail?id='+encodeURIComponent(id)).catch(function(e){delete detailRequests[id];throw e;});detailRequests[id]=entry;var keys=Object.keys(detailRequests);if(keys.length>48)delete detailRequests[keys[0]];return entry.promise;}
+  function warmPosters(results){var n=0;function next(){if(n>=Math.min(results.length,4))return;var item=results[n++];onlineDetails(item.id).then(next,next);}next();}
   function stopPreview(resume){
     if(previewVideo){previewVideo.pause();previewVideo.removeAttribute('src');previewVideo.load();previewVideo.remove();previewVideo=null;}
     if(sideEl){var image=sideEl.querySelector('img');if(image)image.style.display='block';}
@@ -163,8 +165,9 @@
     sideEl.querySelector('.pvbox').className='pvbox'+(it.appIcon?' app-preview':'');
     var image=sideEl.querySelector('img');if(image.getAttribute('data-u')!==url){image.setAttribute('data-u',url);image.style.visibility='hidden';image.onload=function(){image.style.visibility='';};
       if(it.onlineId){
-        var focusedItem=it;
-        callMedia('/online/detail?id='+encodeURIComponent(it.onlineId)).then(function(d){if(previewOwner===focusedItem&&image.getAttribute('data-u')===url)image.src=media+d.poster;}).catch(function(){if(previewOwner===focusedItem)sideEl.querySelector('.pd').textContent='Preview unavailable. OK opens the wallpaper options.';});
+        var focusedUrl=url;
+        sideEl.querySelector('.pd').textContent='Loading preview...';
+        onlineDetails(it.onlineId).then(function(d){if(sideEl&&sideEl.contains(image)&&image.getAttribute('data-u')===focusedUrl){image.src=media+d.poster;sideEl.querySelector('.pd').textContent=previewOwner&&previewOwner.desc||'';}}).catch(function(){if(sideEl&&sideEl.contains(image)&&image.getAttribute('data-u')===focusedUrl){image.removeAttribute('data-u');sideEl.querySelector('.pd').textContent='Preview unavailable. Move focus here to retry.';}});
       }else image.src=url;}
     sideEl.querySelector('.pt').textContent=it.previewTitle||it.label;sideEl.querySelector('.pd').textContent=it.desc||'';
     previewOwner=it;
@@ -231,12 +234,12 @@
         desc:'MoeWalls animated wallpaper.\nOK opens quality choices and an animated preview.',onlineId:w.id,stay:true,fn:function(){onlineDetail(w);}};});
       if(!items.length)items.push({note:'No wallpapers found. Try a shorter search.'});
       if(data.results.length>=12)items.push({label:'More results',stay:true,fn:function(){searchOnline(q,page+1);}});
-      openMenu('Results: '+q,items);
+      openMenu('Results: '+q,items);warmPosters(data.results);
     }).catch(failed);
   }
   function onlineDetail(w){
     toast('Loading wallpaper...');
-    callMedia('/online/detail?id='+encodeURIComponent(w.id)).then(function(d){
+    onlineDetails(w.id).then(function(d){
       var existing=library.filter(function(x){return x.source===w.source;});
       var desc='Animated video from MoeWalls.\nChoose 720p, Full HD or 4K where the source and TV support it. Higher qualities can take longer.';
       var items=[{label:'Play animated preview',onlinePoster:d.poster,desc:desc,stay:true,fn:function(){if(d.preview)showPreview(d.preview);else preparePreview(w,d);}}];

@@ -72,3 +72,30 @@
 [data-theme="neon"] #dock .tile.f {box-shadow:inset 0 0 0 var(--personal-focus-width,2px) var(--personal-accent) !important;}
 [data-storage-low="on"] #bar .pill svg {filter:none;}
 [data-gallery-empty="on"] body {--wall:none;background:#090e1d !important;}
+#neondeck-clock {position:absolute;z-index:3;left:100px;top:62px;display:flex;gap:22px;align-items:center;padding:18px 24px;color:#f3f0ff;pointer-events:none;transform:scale(var(--personal-clock-size,1));transform-origin:top left;}
+#neondeck-clock[data-position="center"] {left:820px;}
+.nd-time {font-size:62px;line-height:1.08;font-weight:500;font-variant-numeric:tabular-nums;letter-spacing:1px;}
+.nd-date {font-size:20px;color:#c2b8d6;margin-top:9px;letter-spacing:.3px;}
+[data-nd-clock="panel"] #neondeck-clock {background:rgba(10,14,30,.66);border:1px solid rgba(199,176,255,.22);border-radius:22px;}
+[data-nd-clock="hero"] .nd-time {font-size:108px;font-weight:300;letter-spacing:-3px;}
+[data-nd-clock="off"] #neondeck-clock,[data-nd-clock="original"] #neondeck-clock {display:none;}
+html[data-nd-clock]:not([data-nd-clock="original"]) #clock {visibility:hidden;}
+[data-date="off"] .nd-date {display:none;}
+.nd-dial {display:none;position:relative;width:116px;height:116px;border:2px solid var(--personal-accent);border-radius:50%;background:repeating-conic-gradient(from -1deg,rgba(199,176,255,.5) 0deg 2deg,transparent 2deg 30deg);box-shadow:inset 0 0 0 7px #101527;}
+[data-nd-clock="analog"] .nd-dial {display:block;}
+[data-nd-clock="analog"] .nd-time {font-size:39px;}
+.nd-hand {position:absolute;left:56px;bottom:56px;width:3px;background:#e9e0ff;transform-origin:50% 100%;border-radius:4px;}
+.nd-hour {height:28px;width:5px;left:55px;}
+.nd-minute {height:43px;}
+.nd-second {height:45px;width:1px;background:var(--personal-accent);left:57px;}
+.nd-dial b {position:absolute;left:52px;top:52px;width:10px;height:10px;border-radius:50%;background:var(--personal-accent);}
+[data-seconds="off"] .nd-second {display:none;}
+[data-nd-motion="subtle"] .tanados-icon,[data-nd-motion="expressive"] .tanados-icon {transition:transform 120ms ease-out,background-color 120ms ease-out;}
+[data-nd-motion="subtle"] .tile.f .tanados-icon {transform:translateY(-4px) scale(1.035);}
+[data-nd-motion="expressive"] .tile.f .tanados-icon {transform:translateY(-9px) scale(1.08);transition-duration:170ms;}
+[data-theme="neon"][data-nd-motion="subtle"] #bar .pill.f {transform:translateY(-3px) !important;transition:transform 120ms ease-out;}
+[data-theme="neon"][data-nd-motion="expressive"] #bar .pill.f {transform:translateY(-5px) scale(1.04) !important;transition:transform 170ms ease-out;}
+@keyframes nd-press {50% {opacity:.7;}}
+.nd-press {animation:nd-press 150ms ease-out;}
+[data-nd-motion="off"] .nd-press {animation:none;}
+@media (prefers-reduced-motion:reduce) {.tanados-icon,#bar .pill {transition:none !important;transform:none !important;}.nd-press {animation:none !important;}}

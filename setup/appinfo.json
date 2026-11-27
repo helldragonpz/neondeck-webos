@@ -1,0 +1,12 @@
+{
+  "id": "org.neondeck.setup",
+  "version": "0.2.0",
+  "vendor": "NeonDeck contributors",
+  "type": "web",
+  "main": "index.html",
+  "title": "NeonDeck Setup",
+  "icon": "icon.png",
+  "largeIcon": "icon.png",
+  "resolution": "1920x1080",
+  "requiredPermissions": ["all"]
+}

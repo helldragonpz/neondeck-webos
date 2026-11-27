@@ -2,6 +2,8 @@
 
 Validation date: 27 November 2026. Hardware: LG 55UR73003LA, firmware 33.31.75, webOS 25 / SDK 10.3.2.
 
+Version 0.2.0 adds TV-only setup packaging, USB payload validation, immediate pointer selection after keypresses, menu-row reuse, new clock controls and optional motion. Browser checks include pointer preview without clicking, 60 consecutive focus moves retaining the same row elements, and clock persistence. USB mount discovery and setup compatibility checks use synthetic fixtures. The setup IPK installed on the real TV and its packaged installer successfully applied the release to the existing Home. Fresh baseline setup and a physical flash-drive installation need owner testing; no stock-TV USB autorun or universal rooting claim is made.
+
 | Check | Evidence and limits |
 | --- | --- |
 | Public installer | Read-only preflight and actual installation completed on the TV |

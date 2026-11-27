@@ -14,7 +14,11 @@ A console-style Home screen for rooted LG TVs, built on [CleanYourTV](https://gi
 - One themed shop for the official webOS Homebrew catalogue: browse, install, update, open and remove apps. Commercial streaming apps still require their normal installation and accounts.
 - Per-TV credentials, local-only helper services, preserved input labels and saved preferences, installation backup and rollback.
 
-**Preview release. Tested on LG 55UR73003LA, firmware 33.31.75, webOS 25.** Other models need the checks in [Compatibility](docs/COMPATIBILITY.md). Root access, an aarch64 kernel, Node 16.20+ and the reviewed CleanYourTV frontend are required. Developer Mode alone cannot replace Home. This release cannot promise support for every LG TV.
+**Installable release v0.2.0. Tested on LG 55UR73003LA, firmware 33.31.75, webOS 25.** Other models need the checks in [Compatibility](docs/COMPATIBILITY.md). Root access, an aarch64 kernel, Node 16.20+ and the reviewed CleanYourTV frontend are required. Developer Mode alone cannot replace Home. This release cannot promise support for every LG TV.
+
+For installation using the remote, follow [TV-only setup and USB repair](docs/TV-SETUP.md). Get the setup IPK and USB ZIP from [Releases](https://github.com/helldragonpz/neondeck-webos/releases/latest). The USB route needs the setup app already installed; stock LG media apps cannot run it.
+
+Version 0.2.0 adds immediate pointer previews, reused menu rows for faster focus movement, optional wallpaper pausing in menus, short button animations with an Off choice, and Clean/Glass/Large/Analogue clock styles. Clock date, 12/24-hour format, seconds, language, position and timezone are configurable.
 
 Start with the [illustrated installation guide](docs/INSTALL.md). Read [Privacy](docs/PRIVACY.md), [Recovery](docs/RECOVERY.md) and [validation details](docs/VALIDATION.md) before installing. The public package contains no owner network settings, keys, downloaded wallpaper artwork or videos.
 

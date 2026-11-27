@@ -16,6 +16,8 @@ const server=http.createServer((req,res)=>{
  const u=new URL(req.url,'http://localhost'),p=u.pathname;
  const json=o=>{res.writeHead(200,{'Content-Type':'application/json'});res.end(JSON.stringify(o));};
  if(p==='/home.html'){res.writeHead(200,{'Content-Type':'text/html'});return res.end(page);}
+ if(p==='/setup.js'){res.writeHead(200,{'Content-Type':'application/javascript'});return res.end(fs.readFileSync(path.join(ROOT,'setup/setup.js')));}
+ if(p==='/setup.html'){const mock="<script>window.PalmServiceBridge=function(){this.call=function(uri,p){var self=this,data=JSON.parse(p);var result={returnValue:true};if(uri.indexOf('getAppInfo')>=0)result.appInfo={folderPath:'/media/developer/apps/usr/palm/applications/org.neondeck.setup'};else{if(data.command.indexOf('nohup ')===0)window._setupCommand=data.command;result.stdoutString=JSON.stringify({status:'ready',message:'Ready',compatible:true,hasBaseline:true,model:'Example LG TV',firmware:'Example',usb:[{id:0,label:'USB volume 1'}]});}setTimeout(function(){self.onservicecallback(JSON.stringify(result));},10);};};</script>";res.writeHead(200,{'Content-Type':'text/html'});return res.end(fs.readFileSync(path.join(ROOT,'setup/index.html'),'utf8').replace('<script src="setup.js">',mock+'<script src="setup.js">'));}
  if(p==='/personal-key.js'){res.writeHead(200,{'Content-Type':'application/javascript'});return res.end('window.TANADOS_LOCAL_TOKEN="public-preview-fixture-no-secret";');}
  if(p.endsWith('.jpg')){res.writeHead(200,{'Content-Type':'image/svg+xml'});return res.end(art);}
  if(p.includes('/icon/')){res.writeHead(200,{'Content-Type':'image/svg+xml'});return res.end(icon);}
@@ -46,7 +48,24 @@ try{
  await evaluate('closeMenus();setFocus(1,0);0');await shot('home');
  await evaluate('act({_o:{action:"customize"}});0');await shot('appearance');
  await evaluate('closeMenus();act({_o:{action:"tanados-wallpapers"}});0');await pick('Search & download wallpapers');await pick('Neon');await shot('wallpapers');
+ if(process.argv.includes('--test')){
+  const verify=async(name,expr)=>{if(!await evaluate(expr))throw Error('FAIL '+name);console.log('PASS '+name);};
+  await verify('preview is visible without clicking a result','sideEl.querySelector("img").naturalWidth>0 && stack[stack.length-1].title==="Results: Neon"');
+  await evaluate('lastKey=Date.now();document.querySelectorAll(".row")[1].dispatchEvent(new MouseEvent("mousemove",{bubbles:true,clientX:1300,clientY:600}));0');
+  await verify('pointer previews ignore the old key delay','stack[stack.length-1].idx===1 && sideEl.querySelector(".pt").textContent==="Crystal Geometry"');
+  await evaluate('window._draws=TANADOS_UI.menuFullDraws;window._row=document.querySelector(".row");window._start=performance.now();for(var n=0;n<60;n++)menuKey(n%2?40:38);window._focusMs=performance.now()-_start;0');
+  await verify('60 focus moves reuse existing rows','TANADOS_UI.menuFullDraws===_draws && document.querySelector(".row")===_row && TANADOS_UI.menuFocusUpdates>=60');
+  console.log('Focus benchmark ms:',await evaluate('_focusMs'));
+ }
+
  await evaluate('closeMenus();act({_o:{action:"tanados-wallpapers"}});0');await pick('Seasonal wallpapers');await shot('holidays');
- await evaluate('closeMenus();act({_o:{action:"tanados-shop"}});0');await sleep(500);await shot('shop');
+ await evaluate('closeMenus();act({_o:{action:"tanados-shop"}});0');await sleep(500);if(!await evaluate('!!document.querySelector("#ov.appshop") && document.querySelectorAll(".store-icon").length>0'))throw Error('App Shop decoration missing');await shot('shop');
  await evaluate('closeMenus();act({_o:{action:"tanados-wallpapers"}});0');await pick('Storage & delete');await shot('storage');
+ if(process.argv.includes('--test')){
+  await evaluate('closeMenus();act({_o:{action:"customize"}});0');await pick('Clock');await pick('Clock style');await pick('Analogue');
+  if(!await evaluate('TANADOS_UI.clockStyle==="analog" && getComputedStyle(document.querySelector(".nd-dial")).display!=="none"'))throw Error('Clock style failed');
+  await send('Page.reload');await sleep(1000);if(!await evaluate('TANADOS_UI.clockStyle==="analog"'))throw Error('Clock persistence failed');
+  console.log('PASS clock style and persistence');
+  await send('Page.navigate',{url:'http://127.0.0.1:8765/setup.html'});await sleep(350);if(!await evaluate('!document.getElementById("install").disabled'))throw Error('Setup app preflight failed');await evaluate('document.getElementById("quality").value="2160";document.getElementById("install").click();0');await sleep(100);if(!await evaluate('_setupCommand.indexOf("install 2160")>0'))throw Error('Setup did not request 4K installation');await sleep(2200);await evaluate('document.getElementById("usb").click();0');await sleep(100);if(!await evaluate('_setupCommand.indexOf("usb 2160 0")>0'))throw Error('USB button did not select the validated bundle');console.log('PASS setup app quality, remote actions and USB selection');
+ }
 }finally{if(ws)ws.close();chrome.kill();server.close();fs.rmSync(userDir,{recursive:true,force:true});}
