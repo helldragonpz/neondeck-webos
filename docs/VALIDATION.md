@@ -19,3 +19,7 @@ Version 0.2.0 adds TV-only setup packaging, USB payload validation, immediate po
 | Reboot | Earlier configuration survived a full reboot; this revision has not repeated a full TV reboot |
 
 Automated browser previews use fixtures and do not demonstrate hardware 4K playback. Physical remote responsiveness, every streaming app's DRM/account playback, long-term storage behaviour and other TV models need owner testing. No universal compatibility or complete telemetry suppression is claimed.
+
+Version 0.2.1 regression tests cover a long 4K time budget, widescreen output dimensions, preservation of a 4K job's poster while browsing, a simulated conversion-memory error, persisted error history and reuse of the same original on retry. On-device long-source retry verification is recorded separately from these synthetic checks.
+
+The browser suite also checks that an HTTP 200 response describing a failed download reaches the retry menu, retains the selected 4K quality on Retry, and requests 720p when that fallback is chosen. An error in a completed job is distinct from an HTTP/authentication failure.

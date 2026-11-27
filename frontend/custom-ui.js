@@ -196,6 +196,7 @@
   function wallpaperItems(){
     return [{label:'My wallpapers',sub:library.length+' saved',stay:true,fn:function(){openMenu('My wallpapers',libraryItems());}},
       {label:'Search & download wallpapers',stay:true,fn:searchMenu},
+      {label:'Download status / retry',stay:true,fn:function(){callMedia('/download/status').then(function(s){if(!s.id||s.status==='idle'){toast('No wallpaper download is running');return;}if(s.status==='ready'){toast((s.title||'Wallpaper')+' is saved in My wallpapers');return;}var id=s.id.replace(/-(720|1080|2160)$/,'');downloadProgress({id:id,title:s.title||'Wallpaper'},s,'/online/'+id+'.jpg',s.kind==='preview');}).catch(failed);}},
       {label:'Seasonal wallpapers',sub:seasonal?'On':'Off',stay:true,fn:seasonMenu},
       {label:'Animation',sub:enabled?'On':'Off',stay:true,fn:toggleMotion},
       {label:'Automatic rotation',sub:interval?'Every '+interval+' min':'Off',stay:true,fn:rotationMenu},
@@ -207,7 +208,7 @@
       var x=new XMLHttpRequest();x.open(data?'POST':'GET',media+route);x.timeout=50000;
       x.setRequestHeader('X-Tanados-Token',window.TANADOS_LOCAL_TOKEN||'');
       if(data)x.setRequestHeader('Content-Type','application/json');
-      x.onload=function(){try{var r=JSON.parse(x.responseText);if(x.status!==200||r.error)throw Error(r.error||'Wallpaper service unavailable');resolve(r);}catch(e){reject(e);}};
+      x.onload=function(){try{var r=JSON.parse(x.responseText);if(x.status!==200||r.error&&r.status!=='error')throw Error(r.error||'Wallpaper service unavailable');resolve(r);}catch(e){reject(e);}};
       x.onerror=function(){reject(Error('Wallpaper service unavailable'));};x.ontimeout=function(){reject(Error('Wallpaper source did not answer'));};x.send(data?JSON.stringify(data):null);
     });
   }
@@ -250,6 +251,7 @@
   }
   function pollDownload(menu,poster,preview){
     function poll(){callMedia('/download/status').then(function(s){
+      if(menu.downloadId&&s.id&&s.id!==menu.downloadId)return;
       menu.status=s;menu.items=menu.build();if(stack[stack.length-1]===menu)drawMenu();
       if(s.status==='ready'){
         if(preview){if(stack.indexOf(menu)>=0&&active()){backMenu();showPreview(s.preview);}return;}
@@ -262,11 +264,11 @@
   function downloadProgress(w,job,poster,preview){
     openBuilt(preview?'Preparing animated preview':'Downloading wallpaper',function(){
       var m=stack[stack.length-1],s=m&&m.status||job;
-      var detail=s.status==='converting'?'Preparing TV video':s.status==='downloading'?'Downloading':s.status==='error'?s.error:s.status;
+      var detail=s.status==='converting'?'Converting on the TV · large 4K loops can take several minutes':s.status==='downloading'?'Downloading':s.status==='error'?s.error:s.status;
       return [{label:w.title,sub:(s.progress||0)+'%',onlinePoster:poster,desc:detail+'\n'+(preview?'Animated preview':'Your preview stays visible while this downloads.'),stay:true,fn:function(){}},
-        {label:'Continue browsing',fn:function(){toast('Download continues in the background');}},
-        {label:'Cancel download',stay:true,fn:function(){callMedia('/download/cancel',{}).then(function(){backMenu();toast('Download cancelled');}).catch(failed);}}];
-    });var m=stack[stack.length-1];m.status=job;pollDownload(m,poster,preview);
+        {label:s.status==='error'?'Retry download':'Continue browsing',fn:function(){if(s.status==='error')beginDownload(w,s.quality||job.quality||720,poster);else toast('Download continues in the background');}},
+        {label:s.status==='error'?'Try HD 720p':'Cancel download',stay:true,fn:function(){if(s.status==='error'){beginDownload(w,720,poster);return;}callMedia('/download/cancel',{}).then(function(){backMenu();toast('Download cancelled');}).catch(failed);}}];
+    });var m=stack[stack.length-1];m.status=job;m.downloadId=job.id;pollDownload(m,poster,preview);
   }
   function beginDownload(w,quality,poster){
     stopPreview(true);callMedia('/download',{id:w.id,quality:quality||720}).then(function(job){downloadProgress(w,job,poster,false);}).catch(function(e){failed(e);if(/storage|limit|space/i.test(e.message))storageMenu();});

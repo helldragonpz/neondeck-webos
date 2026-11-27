@@ -14,7 +14,7 @@ A console-style Home screen for rooted LG TVs, built on [CleanYourTV](https://gi
 - One themed shop for the official webOS Homebrew catalogue: browse, install, update, open and remove apps. Commercial streaming apps still require their normal installation and accounts.
 - Per-TV credentials, local-only helper services, preserved input labels and saved preferences, installation backup and rollback.
 
-**Installable release v0.2.0. Tested on LG 55UR73003LA, firmware 33.31.75, webOS 25.** Other models need the checks in [Compatibility](docs/COMPATIBILITY.md). Root access, an aarch64 kernel, Node 16.20+ and the reviewed CleanYourTV frontend are required. Developer Mode alone cannot replace Home. This release cannot promise support for every LG TV.
+**Installable release v0.2.1. Tested on LG 55UR73003LA, firmware 33.31.75, webOS 25.** Other models need the checks in [Compatibility](docs/COMPATIBILITY.md). Root access, an aarch64 kernel, Node 16.20+ and the reviewed CleanYourTV frontend are required. Developer Mode alone cannot replace Home. This release cannot promise support for every LG TV.
 
 For installation using the remote, follow [TV-only setup and USB repair](docs/TV-SETUP.md). Get the setup IPK and USB ZIP from [Releases](https://github.com/helldragonpz/neondeck-webos/releases/latest). The USB route needs the setup app already installed; stock LG media apps cannot run it.
 
@@ -32,3 +32,5 @@ python3 tools/audit_public.py
 ```
 
 NeonDeck code is MIT licensed. Upstream licenses and artwork credits are in [THIRD-PARTY.md](THIRD-PARTY.md). This project is independent of LG, Apple, Sony and the services shown.
+
+Version 0.2.1 repairs long 4K wallpaper conversions: duration-based time budgets, a bounded 320 MiB conversion worker, protected active posters, correct widescreen quality checks, retained errors and retry without downloading a complete source again. Clear preview cache also removes the retained retry source.

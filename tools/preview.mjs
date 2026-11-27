@@ -12,6 +12,7 @@ const catalogue=[{id:'example',title:'Neon Geometry',width:1920,height:1080},{id
 const store=[{id:'org.jellyfin.webos',title:'Jellyfin',category:'homemedia',description:'Stream your personal media library.',version:'1.2.0',installed:true},{id:'com.limelight.webos',title:'Moonlight',category:'streaming',description:'Stream games from your PC.',version:'1.6.0'},{id:'com.example.puzzle',title:'Number Puzzle',category:'game',description:'A remote-friendly puzzle game.',version:'1.0.0'}].map(a=>({...a,size:2097152,icon:'/apps/icon/'+a.id}));
 let page=fs.readFileSync(path.join(ROOT,'build/index.html'),'utf8').replace('<script>','<script>window.NEONDECK_MEDIA="http://127.0.0.1:8765/media";window.webOSSystem={launchParams:"{}"};localStorage.setItem("tanados.motion","off");localStorage.setItem("tanados.previewSide","left");',1);
 const theme=JSON.parse(fs.readFileSync(path.join(ROOT,'tests/fixtures/theme-resolved.json')));
+let downloadCalls=0,lastDownloadQuality=0,downloadJob={status:'error',id:'mw-0123456789abcdef-2160',title:'Neon Geometry',quality:2160,kind:'wallpaper',error:'Synthetic conversion error',canRetry:true};
 const server=http.createServer((req,res)=>{
  const u=new URL(req.url,'http://localhost'),p=u.pathname;
  const json=o=>{res.writeHead(200,{'Content-Type':'application/json'});res.end(JSON.stringify(o));};
@@ -26,6 +27,10 @@ const server=http.createServer((req,res)=>{
  if(p==='/api/inputs')return json({devices:[]});
  if(p==='/media/catalog.json')return json({version:1,wallpapers:catalogue});
  if(p==='/media/online/search')return json({page:1,results:[{id:'mw-0123456789abcdef',title:'Neon Geometry',source:'https://moewalls.com/fantasy/example-live-wallpaper/',poster:'/online/example.jpg'},{id:'mw-0123456789abcdee',title:'Crystal Geometry',poster:'/online/example.jpg'}]});
+ if(p==='/test/download-state')return json({downloadCalls,lastDownloadQuality});
+ if(p==='/test/reset-download-error'){downloadJob={status:'error',id:'mw-0123456789abcdef-2160',title:'Neon Geometry',quality:2160,kind:'wallpaper',error:'Synthetic conversion error'};return json({ok:true});}
+ if(p==='/media/download/status')return json(downloadJob);
+ if(p==='/media/download'){let b='';req.on('data',x=>b+=x);req.on('end',()=>{const d=JSON.parse(b);downloadCalls++;lastDownloadQuality=d.quality;downloadJob={status:'ready',id:d.id+(d.quality>720?'-'+d.quality:''),title:'Neon Geometry',quality:d.quality,progress:100};json(downloadJob);});return;}
  if(p==='/media/online/detail')return json({id:u.searchParams.get('id'),title:'Neon Geometry',poster:'/online/example.jpg',qualities:[720,1080,2160]});
  if(p==='/media/apps/catalog')return json({source:'Preview catalogue',apps:store});
  if(p==='/media/apps/removable')return json({apps:[]});
@@ -66,6 +71,8 @@ try{
   if(!await evaluate('TANADOS_UI.clockStyle==="analog" && getComputedStyle(document.querySelector(".nd-dial")).display!=="none"'))throw Error('Clock style failed');
   await send('Page.reload');await sleep(1000);if(!await evaluate('TANADOS_UI.clockStyle==="analog"'))throw Error('Clock persistence failed');
   console.log('PASS clock style and persistence');
+  await evaluate('closeMenus();act({_o:{action:"tanados-wallpapers"}});0');await pick('Download status / retry');if(!await evaluate('stack[stack.length-1].items.some(x=>x.label==="Retry download")'))throw Error('Error retry control missing '+JSON.stringify(await evaluate('({menus:stack.map(m=>({title:m.title,status:m.status,items:m.items.map(x=>x.label)})),toast:document.getElementById("toast").textContent})')));await pick('Retry download');await sleep(1000);let state=await(await fetch('http://127.0.0.1:8765/test/download-state')).json();if(state.downloadCalls!==1||state.lastDownloadQuality!==2160)throw Error('Retry changed the selected quality');await fetch('http://127.0.0.1:8765/test/reset-download-error');await evaluate('closeMenus();act({_o:{action:"tanados-wallpapers"}});0');await pick('Download status / retry');await pick('Try HD 720p');await sleep(1000);state=await(await fetch('http://127.0.0.1:8765/test/download-state')).json();if(state.downloadCalls!==2||state.lastDownloadQuality!==720)throw Error('Lower quality retry failed');console.log('PASS retained download errors, same-quality retry and 720p fallback');
+
   await send('Page.navigate',{url:'http://127.0.0.1:8765/setup.html'});await sleep(350);if(!await evaluate('!document.getElementById("install").disabled'))throw Error('Setup app preflight failed');await evaluate('document.getElementById("quality").value="2160";document.getElementById("install").click();0');await sleep(100);if(!await evaluate('_setupCommand.indexOf("install 2160")>0'))throw Error('Setup did not request 4K installation');await sleep(2200);await evaluate('document.getElementById("usb").click();0');await sleep(100);if(!await evaluate('_setupCommand.indexOf("usb 2160 0")>0'))throw Error('USB button did not select the validated bundle');console.log('PASS setup app quality, remote actions and USB selection');
  }
-}finally{if(ws)ws.close();chrome.kill();server.close();fs.rmSync(userDir,{recursive:true,force:true});}
+}finally{if(ws)ws.close();chrome.kill();server.close();if(chrome.exitCode===null)await Promise.race([new Promise(r=>chrome.once('exit',r)),sleep(3000)]);fs.rmSync(userDir,{recursive:true,force:true,maxRetries:10,retryDelay:100});}

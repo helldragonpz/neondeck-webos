@@ -110,7 +110,7 @@ In **Customise**, adjust icon colour, size, style, outlines, corners, dock opaci
 
 ![Wallpaper search browser preview](images/wallpapers.png)
 
-Open **Wallpapers → Search & download wallpapers** and choose a category or type a search. Move focus through results to see the side preview. Press **OK** for the optional animated preview and available quality choices. During a download the poster remains visible. **Continue browsing** leaves the job running; **Cancel download** stops it.
+Open **Wallpapers → Search & download wallpapers** and choose a category or type a search. Move focus through results to see the side preview. Press **OK** for the optional animated preview and available quality choices. During a download the poster remains visible. **Continue browsing** leaves the job running; **Cancel download** stops it. **Wallpapers → Download status / retry** reopens progress or retained errors. A failed conversion offers Retry and an HD 720p fallback.
 
 Choose a downloaded video under **My wallpapers**. Rotation can be off or every 5, 15, 30 or 60 minutes. Videos are silent and stop when Home loses focus so games and streaming apps can use the decoder. The first public installation starts with an empty gallery; choose artwork from the source rather than redistributing it with this project.
 

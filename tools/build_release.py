@@ -4,7 +4,7 @@ from pathlib import Path
 import argparse,gzip,hashlib,io,json,sys,tarfile,urllib.request,zipfile
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from build import ROOT,build
-VERSION='0.2.0'
+VERSION='0.2.1'
 BASELINE_SHA='0202b7fda9ec257e5131f8a9d888f590127f82474c789ce0a705ba2a3cd787e5'
 URL='https://github.com/helldragonpz/neondeck-webos/releases/download/v'+VERSION+'/'
 def sha(data):return hashlib.sha256(data).hexdigest()
@@ -37,7 +37,7 @@ def main():
  info=json.loads(app['appinfo.json']);filename=info['id']+'_'+VERSION+'_all.ipk';package=ipk(app,info);(out/filename).write_bytes(package)
  manifest={'id':info['id'],'version':VERSION,'type':'web','title':'NeonDeck Setup','appDescription':'Install or update NeonDeck with the TV remote. Requires rooted Homebrew Channel, a compatible aarch64 TV and Node 16.20+. Includes the reviewed baseline manager.','iconUri':URL+'icon.png','sourceUrl':'https://github.com/helldragonpz/neondeck-webos','rootRequired':True,'ipkUrl':URL+filename,'ipkHash':{'sha256':sha(package)},'ipkSize':len(package)}
  (out/'org.neondeck.setup.manifest.json').write_text(json.dumps(manifest,indent=2)+'\n');(out/'apps.json').write_text(json.dumps({'name':'NeonDeck for webOS','paging':{'page':1,'count':1,'maxPage':1,'itemsTotal':1},'packages':[{'id':info['id'],'title':'NeonDeck Setup','category':'system','pool':'main','shortDescription':'Install and update NeonDeck with the TV remote','iconUri':URL+'icon.png','manifestUrl':URL+'org.neondeck.setup.manifest.json','manifest':manifest}]},indent=2)+'\n');(out/'icon.png').write_bytes(app['icon.png'])
- readme=(ROOT/'docs/TV-SETUP.md').read_text();(out/'TV-SETUP.md').write_text(readme)
+ readme=(ROOT/'docs/TV-SETUP.md').read_text().replace('NeonDeck-0.2.0-USB.zip','NeonDeck-'+VERSION+'-USB.zip');(out/'TV-SETUP.md').write_text(readme)
  with zipfile.ZipFile(out/('NeonDeck-'+VERSION+'-USB.zip'),'w',zipfile.ZIP_DEFLATED) as z:
   for name,data in [('NeonDeck/payload.tar',payload),('NeonDeck/release.json',release),('NeonDeck/README.md',b'# NeonDeck USB bundle\n\nOpen docs/TV-SETUP.md for the illustrated guide. The NeonDeck Setup app must already be installed on the rooted TV.\n'),('NeonDeck/'+filename,package),('NeonDeck/LICENSE',app['LICENSE'])]:z.writestr(name,data)
   for f in (ROOT/'docs').rglob('*'):
